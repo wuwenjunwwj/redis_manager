@@ -5,7 +5,7 @@
 using namespace std;
 //get 1 url info
 void zgetUrlInfoCmd(Request& request){
-    std::cout<<"call zgetUrlINfoCmd "<<endl;
+    std::cout<<"Call zgetUrlINfoCmd Success"<<endl;
 }
 
 void sgetUrlInfo(Request& request){

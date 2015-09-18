@@ -111,7 +111,7 @@ urlCmd.o: urlCmd.cpp \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/ostream.tcc \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/istream \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/istream.tcc \
- urlCmd.hpp data_interface.hpp
+ urlCmd.hpp cmdType.hpp
 
 /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/string:
 
@@ -385,4 +385,4 @@ urlCmd.o: urlCmd.cpp \
 
 urlCmd.hpp:
 
-data_interface.hpp:
+cmdType.hpp:

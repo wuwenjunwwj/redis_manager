@@ -1,9 +1,10 @@
 #include <string>
 #include<vector>
 #include <iostream>
-#include "data_interface.hpp"
+#include "cmdType.hpp"
 using namespace std;
 //get 1 url info
+struct Request;
 void zgetUrlInfoCmd(Request& request);
 
 void sgetUrlInfo(Request& request);

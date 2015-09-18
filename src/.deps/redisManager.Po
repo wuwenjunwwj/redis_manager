@@ -123,8 +123,7 @@ redisManager.o: redisManager.cpp /usr/include/stdio.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_uninitialized.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_vector.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_bvector.h \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/vector.tcc \
- data_interface.hpp
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/vector.tcc
 
 /usr/include/stdio.h:
 
@@ -453,5 +452,3 @@ urlCmd.hpp:
 /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_bvector.h:
 
 /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/vector.tcc:
-
-data_interface.hpp:

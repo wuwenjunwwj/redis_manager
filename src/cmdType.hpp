@@ -1,3 +1,5 @@
+#ifndef __CMDTYPE__
+#define __CMDTYPE__
 #include <string>
 #include <iostream>
 //#include "data_interface.hpp"
@@ -27,27 +29,38 @@ enum Key{
     url = 0,
     site 
 };
+typedef struct Request{
+    std::string host;
+    int port;
+    std::string data_context;
+    Key key;
+    DataType  data_type;
+    Action action;
+//std::string func_key;
+}Request;
 
-typedef void (*commandProc)(Request& request);
+
+typedef void (*commandProc)(Request& );
 
 typedef struct Command{
-    std::string cmdName;
+    std::string cmdKey;
     commandProc proc;
-    Key key;
-    DataType type; 
-    Action action;
-    Command(std::string _cmdName, commandProc _proc, int _key, int _type, int _action){
-        cmdName = _cmdName;
+    //Key key;
+    //DataType type; 
+    //Action action;
+    Command(std::string _cmdKey, commandProc _proc){
+        cmdKey = _cmdKey;
         proc = _proc;
-        key = (Key)_key;
-        type = (DataType)_type;
-        action=(Action)_action;
+        //key = (Key)_key;
+        //type = (DataType)_type;
+        //action=(Action)_action;
     }
 
 } Command;
 
 static Command CommandTable[]={
-    {"zgetUrlInfo", zgetUrlInfoCmd, 0,4,0},
+    //key data_type action
+    {"010", zgetUrlInfoCmd}
     /*{"sgetUrlInfo","getUrlInfoCmd",0,3,0},
     
     {"zsetUrlInfo","setUrlInfoCmd",0,4,1},
@@ -65,3 +78,4 @@ static Command CommandTable[]={
     {"zdelSiteInfo","delSiteInfoCmd",1,4,2},
     {"sgetSiteInfo","getSiteInfoCmd",1,3,2}*/
 };
+#endif
