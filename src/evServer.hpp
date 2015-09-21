@@ -7,6 +7,7 @@
 #include <netdb.h> 
 #include <event.h>
 #include "cmdProcessor.hpp"
+#define MAX_BUF_LEN 1500
 class EvServer{
 public:
     void serve();

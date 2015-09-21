@@ -233,8 +233,8 @@ collectHEADERS_T = \
 	$(addprefix $(collectinclude_DIR)/, $(nobase_include_HEADERS)) \
 	$(addprefix $(collectinclude_DIR)/$(PACKAGE)/, $(nobase_pkginclude_HEADERS))
 
-redis_manager_SOURCES = redisManager.cpp evServer.cpp urlCmd.cpp cmdProcessor.cpp
-redis_manager_LDADD = -levent
+redis_manager_SOURCES = redisManager.cpp evServer.cpp urlCmd.cpp cmdProcessor.cpp 
+redis_manager_LDADD = -levent  -lhiredis
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 

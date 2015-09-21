@@ -38,9 +38,9 @@ CmdProcessor *cmd_processor=  new CmdProcessor();
 void onRead(int iCliFd, short iEvent, void *arg) 
 { 
     int iLen; 
-    char buf[1500]; 
+    char buf[MAX_BUF_LEN]; 
    
-    iLen = recv(iCliFd, buf, 1500, 0); 
+    iLen = recv(iCliFd, buf, MAX_BUF_LEN, 0); 
    
     if (iLen <= 0) { 
         cout << "Client Close" << endl; 
@@ -52,10 +52,12 @@ void onRead(int iCliFd, short iEvent, void *arg)
         close(iCliFd); 
         return; 
     }   
-   
-    buf[iLen] = 0;  
-    cmd_processor -> processInputBuffer(buf);
+    
     cout << "Client Info:" << buf << endl; 
+    buf[iLen] = 0;  
+    const char* response_str = cmd_processor -> processInputBuffer(buf);
+    write(iCliFd, response_str, strlen(response_str));
+    cout<< "Send to Client: "<< response_str<<std::endl;
 
 } 
    
@@ -90,14 +92,11 @@ void EvServer::initServer(){
     base = event_base_new(); 
     struct event evListen;
     event_set(&evListen, iSvrFd, EV_READ|EV_PERSIST, onAccept, NULL);
+    std::cout<<"in initserver1"<<std::endl;
     event_base_set(base, &evListen);
     event_add(&evListen, NULL);
-    cout<<"in initserver"<<endl;
     event_base_dispatch(base);
-    cout<<"after initserver"<<endl;
-
-    //init process;
-    //cmd_processor = new CmdProcessor();
+    std::cout<<"in initserver2"<<std::endl;
 }
 void EvServer::serve(){
     cout<<"in serve"<<endl;

@@ -29,6 +29,7 @@ enum Key{
     url = 0,
     site 
 };
+
 typedef struct Request{
     std::string host;
     int port;
@@ -39,21 +40,27 @@ typedef struct Request{
 //std::string func_key;
 }Request;
 
+enum ResponseError{
+    REDIS_OK = 0,
+    REDIS_CONNECT_ERROR = 1,
+    REDIS_KEY_NOT_EXIST = 2,
+    REDIS_VALUE_NOT_EXIST = 3,
+    BAD_REQUEST_DATA
+};
 
-typedef void (*commandProc)(Request& );
+typedef struct Response{
+    ResponseError err; //todo change
+    std::string data_context;
+}Response;
+
+typedef void (*commandProc)(Request& request, Response& response);
 
 typedef struct Command{
     std::string cmdKey;
     commandProc proc;
-    //Key key;
-    //DataType type; 
-    //Action action;
     Command(std::string _cmdKey, commandProc _proc){
         cmdKey = _cmdKey;
         proc = _proc;
-        //key = (Key)_key;
-        //type = (DataType)_type;
-        //action=(Action)_action;
     }
 
 } Command;
@@ -61,21 +68,5 @@ typedef struct Command{
 static Command CommandTable[]={
     //key data_type action
     {"010", zgetUrlInfoCmd}
-    /*{"sgetUrlInfo","getUrlInfoCmd",0,3,0},
-    
-    {"zsetUrlInfo","setUrlInfoCmd",0,4,1},
-    {"ssetUrlInfo","setUrlInfoCmd",0,3,1},
-    
-    {"zdelUrlInfo","setUrlInfoCmd",0,4,2},
-    {"sdelUrlInfo","setUrlInfoCmd",0,3,2},
-    
-    {"zgetSiteInfo","getSiteInfoCmd",1,4,0},
-    {"sgetSiteInfo","getSiteInfoCmd",1,3,0},
-    
-    {"zsetSiteInfo","setSiteInfoCmd",1,4,1},
-    {"sgetSiteInfo","getSiteInfoCmd",1,3,1},
-    
-    {"zdelSiteInfo","delSiteInfoCmd",1,4,2},
-    {"sgetSiteInfo","getSiteInfoCmd",1,3,2}*/
 };
 #endif

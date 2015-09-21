@@ -4,10 +4,10 @@
 //#include "data_interface.hpp"
 class CmdProcessor{
 public:
-    void processInputBuffer(const char* buf);
+    const char* processInputBuffer(const char* buf);
     void processCommand();
     void loadCmdTable();
-    void make_call(std::string func_key, Request& request);
+    void make_call(std::string func_key, Request& request, Response& response);
     std::string decode(const char* buf, Request& request);
 private:
     //void registor_cmdProcessor(std::string cmd_key, commandProc proc);

@@ -10,20 +10,14 @@ using namespace std;
 void CmdProcessor::loadCmdTable(){
      int command_nums = sizeof(CommandTable)/sizeof(struct Command);
      for(int i=0; i<command_nums; i++){
-         //stringstream ss;
-         //ss << CommandTable[i].type<<CommandTable[i].action<<CommandTable[i].key;
-         //std::string key_str = ss.str();
          m_processMap[CommandTable[i].cmdKey] = CommandTable[i].proc;
-        // std::cout<<"insert key="<<key_str<<" value="<<CommandTable[i].proc<<std::endl;
 
      }
 }
 // make real call
-void CmdProcessor::make_call(std::string func_key, Request& request){
+void CmdProcessor::make_call(std::string func_key, Request& request, Response& response){
     std::cout<<"in really make_call"<<std::endl;
-    //todo:400\n
-    //(m_processMap["400"])("hihi");
-    m_processMap[func_key](request);
+    m_processMap[func_key](request, response);
 }
 
 std::vector<std::string> split(std::string s, std::string delimiter){
@@ -39,10 +33,9 @@ std::vector<std::string> split(std::string s, std::string delimiter){
     return str_vec;
 
 }
-//std::set<std::string> key_set;
 
 std::string  CmdProcessor::decode(const char* buf, Request& request){
-    std::string s = "host127.0.0.1&port=6379&url=\"http://www.baidu.com\"&action=0&type=1";
+    std::string s = "host=127.0.0.1&port=6379&url=\"http://007hw.com/aaaa/bbbb\"&action=0&type=1";
     std::string delimiter = "&";
     std::vector<std::string> str_vec = split(s, delimiter);
     for(size_t i=0; i<str_vec.size(); i++){
@@ -55,7 +48,8 @@ std::string  CmdProcessor::decode(const char* buf, Request& request){
             std::cout<<"the key is: "<<key_str <<" the value is: "<<value_str<<std::endl;
             if(key_str == "url"){
                 request.key= url;
-                request.data_context = value_str;
+                //remove "
+                request.data_context = value_str.substr (1, value_str.length()-2);;
                 std::cout<<"request.key"<<request.key<<std::endl;
             }
             else if(key_str == "site"){
@@ -68,6 +62,10 @@ std::string  CmdProcessor::decode(const char* buf, Request& request){
             }
             else if(key_str == "type")
                 request.data_type = DataType(atoi(value_str.c_str()));
+            else if(key_str == "host")
+                request.host = value_str;
+            else if(key_str == "port")
+                request.port = atoi(value_str.c_str());
             else
                 std::cout<<"just skip"<<std::endl;
         }
@@ -84,13 +82,16 @@ std::string  CmdProcessor::decode(const char* buf, Request& request){
     return func_key;
 
 }
-void CmdProcessor::processInputBuffer(const char* buf){
-    cout<<"hello, processMessage"<<buf<<std::endl;
+const char*  CmdProcessor::processInputBuffer(const char* buf){
+    cout<<"processMessage"<<buf<<std::endl;
     std::string buf_str = buf;
     Request request;
     std::string func_key = decode(buf,request);
     std::cout<<"func_key"<< func_key<<std::endl;
-    make_call(func_key, request);
+    Response response;
+    make_call(func_key, request, response);
+    //const char* response_str = response.data_context;
+    return response.data_context.c_str();
 }
 /*int main(){
     CmdProcessor* a = new CmdProcessor();

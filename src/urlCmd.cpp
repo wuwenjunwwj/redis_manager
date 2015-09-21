@@ -2,10 +2,34 @@
 #include<vector>
 #include <iostream>
 #include "urlCmd.hpp"
+#include <cstdlib>
+#include "redis_util/redis_cmd.cpp"
+#include "util/url_parser.c"
 using namespace std;
+
 //get 1 url info
-void zgetUrlInfoCmd(Request& request){
+void zgetUrlInfoCmd(Request& request, Response& response){
     std::cout<<"Call zgetUrlINfoCmd Success"<<endl;
+    struct timeval timeout = {2, 0}; 
+    struct parsed_url* _parsed_url = parse_url(request.data_context.c_str());
+    if(_parsed_url ==NULL){
+        response.err = (ResponseError)BAD_REQUEST_DATA;
+        response.data_context = "";
+        return;
+    }
+    std::string host = _parsed_url -> host;
+    std::string host_key = SITE_PREFIX +host +SITE_SUFFIX;
+    redisContext* context = connect(request.host, request.port, timeout);
+    if(context ==NULL){
+        response.err = REDIS_CONNECT_ERROR;
+        return;
+    }
+    std::string _path="/";
+    if(_parsed_url ->path)_path = _parsed_url ->path;
+    Redis_Response* redis_response = zget_by_kv(context, host_key, _path);
+    response.err = (ResponseError)(redis_response->err);
+    response.data_context = redis_response->data_context;
+
 }
 
 void sgetUrlInfo(Request& request){

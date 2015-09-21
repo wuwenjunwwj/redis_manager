@@ -4,6 +4,7 @@
 #include <vector>
 #include <cstring>
 #include <stdexcept>
+#include "redis_cmd.hpp"
 using namespace std;
 redisContext* connect(string host, int port, timeval timeout){
     redisContext *pRedisContext = (redisContext*)redisConnectWithTimeout(host.c_str(), port, timeout);
@@ -44,7 +45,7 @@ void mset_batch(redisContext *c, const vector<string> &vtKey, const vector<strin
     }   
 
     string strCmd = "MSET";
-    for(int i = 0; i < vtKey.size(); i++){   
+    for(size_t i = 0; i < vtKey.size(); i++){   
         strCmd += " "+vtKey[i]+" "+vtVal[i];
     }   
     cout << "strCmd:" << strCmd << endl;
@@ -59,7 +60,7 @@ void mset_batch(redisContext *c, const vector<string> &vtKey, const vector<strin
 void srem_by_key(redisContext *c, std::string key){
     redisReply* r;
     r = (redisReply*)redisCommand(c, "SMEMBERS %s", key.c_str());
-    for (int i = 0; i < r->elements; i++) {
+    for (size_t i = 0; i < r->elements; i++) {
         redisReply* childReply = r->element[i];
         if (childReply->type == REDIS_REPLY_STRING){
             redisReply* r1 = (redisReply*)redisCommand(c, "SREM %s %s", key.c_str(), childReply->str);
@@ -76,7 +77,7 @@ void srem_by_key(redisContext *c, std::string key){
 void zrem_by_key(redisContext *c, std::string key){
     redisReply* r;
     r = (redisReply*)redisCommand(c, "zrange %s 0 -1", key.c_str());
-    for (int i = 0; i < r->elements; i++) {
+    for (size_t i = 0; i < r->elements; i++) {
         redisReply* childReply = r->element[i];
         if (childReply->type == REDIS_REPLY_STRING){
             redisReply* r1 = (redisReply*)redisCommand(c, "ZREM %s %s", key.c_str(), childReply->str);
@@ -90,21 +91,55 @@ void zrem_by_key(redisContext *c, std::string key){
 }
 
 //remove the zset by  key and score
-
 void zrem_by_key_score(redisContext *c, std::string key, std::string score){
     redisReply* r;
     r = (redisReply*)redisCommand(c, "ZREMRANGEBYSCORE %s  %s %s", key.c_str(), score.c_str(), score.c_str());
-    printf("zrem count  %d  %s\n", r->integer);
+    //printf("zrem count  %ld\n", r->integer);
     if(r != NULL)freeReplyObject(r);
     
 }
+Redis_Response*  zget_by_kv(redisContext* c, std::string key, std::string value){
+    redisReply* r = (redisReply*)redisCommand(c, "ZRANGE %s  0 -1", key.c_str());
+    Redis_Response* redis_response = new Redis_Response();
+    if(r->elements==0){
+        redis_response->err = (REDIS_ERROR)_REDIS_KEY_NOT_EXIST;
+        redis_response->data_context = "";
 
+    }   
+    else{
+        for (size_t i = 0; i < r->elements; i++) {
+        redisReply* childReply = r->element[i];
+        if (childReply->type == REDIS_REPLY_STRING){
+             std::string value_str = childReply->str;
+             unsigned int found = value_str.find(PATH_PREFIX);
+             size_t path_len = 0;
+             if(found == std::string::npos){
+                 redis_response->err  = (REDIS_ERROR)_REDIS_VALUE_NOT_EXIST;
+                 redis_response->data_context = ""; 
+             }   
+             unsigned int found2 = value_str.find(", ");
+             if(found2 == std::string::npos)
+                 path_len = value_str.length() -  PATH_PREFIX_LEN -2; 
+             else
+                 path_len = found2 -  PATH_PREFIX_LEN -2 ;
+             std::string path = value_str.substr(found+8,path_len);
+             std::cout<<"the path is "<<path<<std::endl;
+             if(path =="/forum.php?mod=forumdisplay&fid=12\"}"){
+                 redis_response->data_context = value_str;
+                 redis_response->err = (REDIS_ERROR)_REDIS_OK;
+             }   
+             redis_response->data_context = "KEY: "+ key +"\t"+"VALUE: "+value_str + "\n";
+        }   
+    }   
+   }
+    return redis_response;
+}
 
-int main(int argc, char **argv){
+/*int main(int argc, char **argv){
     struct timeval timeout = {2, 0}; 
     redisContext* context = connect("127.0.0.1", 6399, timeout);
-    zrem_by_score(context, "page_rank", "8");
+    zrem_by_key_score(context, "page_rank", "8");
     if(context != NULL)
         redisFree(context);
     return 0;
-}
+}*/

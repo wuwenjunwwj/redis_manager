@@ -2,12 +2,18 @@
 #include<vector>
 #include <iostream>
 #include "cmdType.hpp"
+//#include "util/URI.hpp"
 using namespace std;
 //get 1 url info
 struct Request;
-void zgetUrlInfoCmd(Request& request);
+struct Response;
+#define PATH_PREFIX  "\"path\": "
+#define PATH_PREFIX_LEN 8
+#define SITE_PREFIX "d:s:"
+#define SITE_SUFFIX ":s"
+void zgetUrlInfoCmd(Request& request, Response& response);
 
-void sgetUrlInfo(Request& request);
+void sgetUrlInfo(Request& request, Response& response);
 //get batch url info
 void sgetBatchUrlInfo(std::vector<std::string> urls);
 
