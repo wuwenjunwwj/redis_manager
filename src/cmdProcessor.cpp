@@ -35,7 +35,7 @@ std::vector<std::string> split(std::string s, std::string delimiter){
 }
 
 std::string  CmdProcessor::decode(const char* buf, Request& request){
-    std::string s = "host=127.0.0.1&port=6379&url=\"http://007hw.com/aaaa/bbbb\"&action=0&type=1";
+    std::string s = "host=127.0.0.1&port=6379&url=\"http://007hw.com/forum.php?mod=forumdisplay&fid=24\"&action=0&type=1";
     std::string delimiter = "&";
     std::vector<std::string> str_vec = split(s, delimiter);
     for(size_t i=0; i<str_vec.size(); i++){

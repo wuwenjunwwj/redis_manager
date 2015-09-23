@@ -57,7 +57,7 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_redis_manager_OBJECTS = redisManager.$(OBJEXT) evServer.$(OBJEXT) \
-	urlCmd.$(OBJEXT) cmdProcessor.$(OBJEXT)
+	urlCmd.$(OBJEXT) cmdProcessor.$(OBJEXT) redis_client.$(OBJEXT)
 redis_manager_OBJECTS = $(am_redis_manager_OBJECTS)
 redis_manager_DEPENDENCIES =
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
@@ -233,7 +233,7 @@ collectHEADERS_T = \
 	$(addprefix $(collectinclude_DIR)/, $(nobase_include_HEADERS)) \
 	$(addprefix $(collectinclude_DIR)/$(PACKAGE)/, $(nobase_pkginclude_HEADERS))
 
-redis_manager_SOURCES = redisManager.cpp evServer.cpp urlCmd.cpp cmdProcessor.cpp 
+redis_manager_SOURCES = redisManager.cpp evServer.cpp urlCmd.cpp cmdProcessor.cpp redis_util/redis_client.cpp
 redis_manager_LDADD = -levent  -lhiredis
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -326,6 +326,7 @@ distclean-compile:
 include ./$(DEPDIR)/cmdProcessor.Po
 include ./$(DEPDIR)/evServer.Po
 include ./$(DEPDIR)/redisManager.Po
+include ./$(DEPDIR)/redis_client.Po
 include ./$(DEPDIR)/urlCmd.Po
 
 .cpp.o:
@@ -348,6 +349,20 @@ include ./$(DEPDIR)/urlCmd.Po
 #	source='$<' object='$@' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(LTCXXCOMPILE) -c -o $@ $<
+
+redis_client.o: redis_util/redis_client.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT redis_client.o -MD -MP -MF $(DEPDIR)/redis_client.Tpo -c -o redis_client.o `test -f 'redis_util/redis_client.cpp' || echo '$(srcdir)/'`redis_util/redis_client.cpp
+	$(am__mv) $(DEPDIR)/redis_client.Tpo $(DEPDIR)/redis_client.Po
+#	source='redis_util/redis_client.cpp' object='redis_client.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o redis_client.o `test -f 'redis_util/redis_client.cpp' || echo '$(srcdir)/'`redis_util/redis_client.cpp
+
+redis_client.obj: redis_util/redis_client.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT redis_client.obj -MD -MP -MF $(DEPDIR)/redis_client.Tpo -c -o redis_client.obj `if test -f 'redis_util/redis_client.cpp'; then $(CYGPATH_W) 'redis_util/redis_client.cpp'; else $(CYGPATH_W) '$(srcdir)/redis_util/redis_client.cpp'; fi`
+	$(am__mv) $(DEPDIR)/redis_client.Tpo $(DEPDIR)/redis_client.Po
+#	source='redis_util/redis_client.cpp' object='redis_client.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o redis_client.obj `if test -f 'redis_util/redis_client.cpp'; then $(CYGPATH_W) 'redis_util/redis_client.cpp'; else $(CYGPATH_W) '$(srcdir)/redis_util/redis_client.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

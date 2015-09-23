@@ -5,6 +5,8 @@
 #include <cstring>
 #include <stdexcept>
 #include "redis_cmd.hpp"
+#include "redis_client.hpp"
+#include "redis_str_parser.cpp"
 using namespace std;
 redisContext* connect(string host, int port, timeval timeout){
     redisContext *pRedisContext = (redisContext*)redisConnectWithTimeout(host.c_str(), port, timeout);
@@ -94,47 +96,51 @@ void zrem_by_key(redisContext *c, std::string key){
 void zrem_by_key_score(redisContext *c, std::string key, std::string score){
     redisReply* r;
     r = (redisReply*)redisCommand(c, "ZREMRANGEBYSCORE %s  %s %s", key.c_str(), score.c_str(), score.c_str());
-    //printf("zrem count  %ld\n", r->integer);
     if(r != NULL)freeReplyObject(r);
     
 }
-Redis_Response*  zget_by_kv(redisContext* c, std::string key, std::string value){
-    redisReply* r = (redisReply*)redisCommand(c, "ZRANGE %s  0 -1", key.c_str());
+//get data from zset by key && value
+Redis_Response*  zget_by_kv(std::string key, std::string value){
     Redis_Response* redis_response = new Redis_Response();
-    if(r->elements==0){
-        redis_response->err = (REDIS_ERROR)_REDIS_KEY_NOT_EXIST;
-        redis_response->data_context = "";
-
+    Redis* r = new Redis("127.0.0.1", "0", 6379);
+    if(r -> connect()== -1) 
+        return NULL;
+    Reply* reply = r -> zrange(key, 0, -1);
+    if(reply!=NULL){
+        value = "/forum.php?mod=forumdisplay&fid=102";
+        for(size_t i=0; i<(reply->str_vec).size(); i++){
+            std::string member = reply->str_vec[i];
+            std::map<std::string ,std::string> str_map = split(member,",",":");
+            std::cout<<"value: "<<value<<std::endl;
+            if(str_map.find("path")->second == value){
+                std::cout<<"MATCHED"<<std::endl;
+                redis_response->data_context = "KEY: "+ key +"\t"+"VALUE: "+member + "\n";
+                break;
+            }
+        }
     }   
-    else{
-        for (size_t i = 0; i < r->elements; i++) {
-        redisReply* childReply = r->element[i];
-        if (childReply->type == REDIS_REPLY_STRING){
-             std::string value_str = childReply->str;
-             unsigned int found = value_str.find(PATH_PREFIX);
-             size_t path_len = 0;
-             if(found == std::string::npos){
-                 redis_response->err  = (REDIS_ERROR)_REDIS_VALUE_NOT_EXIST;
-                 redis_response->data_context = ""; 
-             }   
-             unsigned int found2 = value_str.find(", ");
-             if(found2 == std::string::npos)
-                 path_len = value_str.length() -  PATH_PREFIX_LEN -2; 
-             else
-                 path_len = found2 -  PATH_PREFIX_LEN -2 ;
-             std::string path = value_str.substr(found+8,path_len);
-             std::cout<<"the path is "<<path<<std::endl;
-             if(path =="/forum.php?mod=forumdisplay&fid=12\"}"){
-                 redis_response->data_context = value_str;
-                 redis_response->err = (REDIS_ERROR)_REDIS_OK;
-             }   
-             redis_response->data_context = "KEY: "+ key +"\t"+"VALUE: "+value_str + "\n";
-        }   
-    }   
-   }
+    delete r;
     return redis_response;
 }
 
+//add data to zset according key&&value
+Redis_Response*  zset_by_kv(std::string key, std::string value, std::string score){
+    Redis_Response* redis_response = new Redis_Response();
+    Redis* r = new Redis("127.0.0.1", "0", 6379);
+    if(r -> connect()== -1)
+        return NULL;
+    Reply* reply = r -> zrange(key, 0, -1);
+    if(reply!=NULL){
+        for(size_t i=0; i<(reply->str_vec).size(); i++){
+            if(reply!=NULL)std::cout<<"the members is: "<<reply->str_vec[i]<<std::endl;
+        }
+    }
+    return redis_response;
+}
+
+// remove data by key&&value
+//Redis_Response* zrem_by_kv(redisContext* c, std::string key, std::string value){
+//}
 /*int main(int argc, char **argv){
     struct timeval timeout = {2, 0}; 
     redisContext* context = connect("127.0.0.1", 6399, timeout);

@@ -1,7 +1,7 @@
 #ifndef __REDIS_CMD__
 #define __REDIS_CMD__
 #include <string>
-
+#include "redis_client.hpp"
 enum REDIS_ERROR{
     _REDIS_OK = 0 ,
     _REDIS_CONNECT_ERROR = 1,
