@@ -134,14 +134,7 @@ evServer.o: evServer.cpp /usr/include/time.h /usr/include/features.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_tree.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_map.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_multimap.h \
- cmdType.hpp urlCmd.hpp \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/vector \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_construct.h \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_uninitialized.h \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_vector.h \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_bvector.h \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/vector.tcc \
- jsonReqeustParser.hpp thirdparty/rapidjson/document.h \
+ cmdType.hpp jsonReqeustParser.hpp thirdparty/rapidjson/document.h \
  thirdparty/rapidjson/reader.h thirdparty/rapidjson/rapidjson.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/cstring \
  /usr/include/inttypes.h \
@@ -555,20 +548,6 @@ cmdProcessor.hpp:
 /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_multimap.h:
 
 cmdType.hpp:
-
-urlCmd.hpp:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/vector:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_construct.h:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_uninitialized.h:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_vector.h:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_bvector.h:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/vector.tcc:
 
 jsonReqeustParser.hpp:
 

@@ -1,4 +1,8 @@
+#ifndef __JSON_REQ_PARSER_H_
+#define __JSON_REQ_PARSER_H_
+
 #include<iostream>
+
 #include "thirdparty/rapidjson/document.h"
 #include "thirdparty/rapidjson/reader.h"
 #include "thirdparty/rapidjson/rapidjson.h"
@@ -13,6 +17,9 @@ public:
         //const char json1[] = " { \"host\" : \"127.0.0.1\", \"port\" : 6379 , \"url\" : \"http://007hw.com/forum.php?mod=forumdisplay&fid=24\", \"action\": 0, \"type\":1 }";
         rapidjson::Document document;
         document.Parse<rapidjson::kParseDefaultFlags>(json1);
+        if(document.HasParseError())
+            return;
+
         if(!document.IsObject()){
             std::cout<<"bad json str"<<std::endl;
         }
@@ -51,3 +58,5 @@ public:
 
     }
 };
+
+#endif

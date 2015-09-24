@@ -1,5 +1,6 @@
 #ifndef _REDIS_CLIENT_
 #define _REDIS_CLIENT_
+
 #include "hiredis/hiredis.h"
 #include <string>
 #include <stdexcept>

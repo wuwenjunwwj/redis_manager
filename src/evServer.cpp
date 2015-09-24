@@ -17,7 +17,9 @@
 #include <sys/resource.h>
 #include <sys/utsname.h>
 #include <locale.h>
+
 #include "evServer.hpp"
+
 using namespace std;
 void EvServer::daemonize(void){
     int fd;

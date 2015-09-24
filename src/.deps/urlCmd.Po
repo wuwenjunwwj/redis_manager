@@ -1,4 +1,4 @@
-urlCmd.o: urlCmd.cpp \
+urlCmd.o: urlCmd.cpp urlCmd.hpp \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/string \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/x86_64-redhat-linux/bits/c++config.h \
  /usr/include/bits/wordsize.h \
@@ -111,16 +111,16 @@ urlCmd.o: urlCmd.cpp \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/ostream.tcc \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/istream \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/istream.tcc \
- urlCmd.hpp cmdType.hpp redis_util/redis_cmd.cpp \
- /usr/local/include/hiredis/hiredis.h /usr/local/include/hiredis/read.h \
- /usr/include/sys/time.h /usr/local/include/hiredis/sds.h \
+ redis_util/redis_cmd.hpp /usr/local/include/hiredis/hiredis.h \
+ /usr/local/include/hiredis/read.h /usr/include/sys/time.h \
+ /usr/local/include/hiredis/sds.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/cstring \
  /usr/include/string.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/stdexcept \
- redis_util/redis_cmd.hpp redis_util/redis_client.hpp \
- redis_util/redis_str_parser.cpp /usr/include/boost/regex.hpp \
- /usr/include/boost/regex/config.hpp /usr/include/boost/regex/user.hpp \
- /usr/include/boost/config.hpp /usr/include/boost/config/user.hpp \
+ cmdType.hpp redis_util/redis_client.hpp redis_util/redis_str_parser.cpp \
+ /usr/include/boost/regex.hpp /usr/include/boost/regex/config.hpp \
+ /usr/include/boost/regex/user.hpp /usr/include/boost/config.hpp \
+ /usr/include/boost/config/user.hpp \
  /usr/include/boost/config/select_compiler_config.hpp \
  /usr/include/boost/config/compiler/gcc.hpp \
  /usr/include/boost/config/select_stdlib_config.hpp \
@@ -345,8 +345,10 @@ urlCmd.o: urlCmd.cpp \
  /usr/include/boost/regex/v4/regex_grep.hpp \
  /usr/include/boost/regex/v4/regex_replace.hpp \
  /usr/include/boost/regex/v4/regex_merge.hpp \
- /usr/include/boost/regex/v4/regex_split.hpp parser/url_parser.c \
- parser/url_parser.h
+ /usr/include/boost/regex/v4/regex_split.hpp redis_util/gen_redis_kv.cpp \
+ parser/url_parser.c parser/url_parser.h
+
+urlCmd.hpp:
 
 /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/string:
 
@@ -618,11 +620,7 @@ urlCmd.o: urlCmd.cpp \
 
 /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/istream.tcc:
 
-urlCmd.hpp:
-
-cmdType.hpp:
-
-redis_util/redis_cmd.cpp:
+redis_util/redis_cmd.hpp:
 
 /usr/local/include/hiredis/hiredis.h:
 
@@ -638,7 +636,7 @@ redis_util/redis_cmd.cpp:
 
 /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/stdexcept:
 
-redis_util/redis_cmd.hpp:
+cmdType.hpp:
 
 redis_util/redis_client.hpp:
 
@@ -1125,6 +1123,8 @@ redis_util/redis_str_parser.cpp:
 /usr/include/boost/regex/v4/regex_merge.hpp:
 
 /usr/include/boost/regex/v4/regex_split.hpp:
+
+redis_util/gen_redis_kv.cpp:
 
 parser/url_parser.c:
 

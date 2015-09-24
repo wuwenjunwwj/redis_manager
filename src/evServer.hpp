@@ -1,3 +1,6 @@
+#ifndef __EVER_SVR_H_
+#define __EVER_SVR_H_
+
 #include <stdio.h> 
 #include <string.h> 
 #include <iostream> 
@@ -20,3 +23,4 @@ private:
     //CmdProcessor *cmd_processor;
 
 };
+#endif

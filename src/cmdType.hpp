@@ -1,10 +1,10 @@
 #ifndef __CMDTYPE__
 #define __CMDTYPE__
+
 #include <string>
 #include <iostream>
-//#include "data_interface.hpp"
-#include "urlCmd.hpp"
-using namespace std;
+//#include "urlCmd.hpp"
+
 
 //redis data-type
 enum DataType{
@@ -38,13 +38,21 @@ typedef struct Request{
     DataType  data_type;
     Action action;
 //std::string func_key;
+    void reset(){
+        host = "";
+        port = 0;
+        data_context = "";
+        data_type = (DataType)0;
+        action = (Action)0;
+    };
 }Request;
 
+
 enum ResponseError{
-    REDIS_OK = 0,
-    REDIS_CONNECT_ERROR = 1,
-    REDIS_KEY_NOT_EXIST = 2,
-    REDIS_VALUE_NOT_EXIST = 3,
+    REDIS_ALL_RIGHT,
+    REDIS_CONNECT_ERROR,
+    REDIS_KEY_NOT_EXIST,
+    REDIS_VALUE_NOT_EXIST,
     BAD_REQUEST_DATA
 };
 
@@ -52,6 +60,9 @@ typedef struct Response{
     ResponseError err; //todo change
     std::string data_context;
 }Response;
+
+//forward declare here~
+void zgetUrlInfoCmd(Request& request, Response& response);
 
 typedef void (*commandProc)(Request& request, Response& response);
 
