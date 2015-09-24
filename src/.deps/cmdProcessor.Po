@@ -117,6 +117,36 @@ cmdProcessor.o: cmdProcessor.cpp cmdProcessor.hpp \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_vector.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_bvector.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/vector.tcc \
+ jsonReqeustParser.hpp thirdparty/rapidjson/document.h \
+ thirdparty/rapidjson/reader.h thirdparty/rapidjson/rapidjson.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/cstring \
+ /usr/include/string.h /usr/include/inttypes.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/cassert \
+ /usr/include/assert.h thirdparty/rapidjson/allocators.h \
+ thirdparty/rapidjson/encodings.h thirdparty/rapidjson/internal/meta.h \
+ thirdparty/rapidjson/internal/../rapidjson.h \
+ thirdparty/rapidjson/internal/stack.h \
+ thirdparty/rapidjson/internal/swap.h \
+ thirdparty/rapidjson/internal/strtod.h \
+ thirdparty/rapidjson/internal/ieee754.h \
+ thirdparty/rapidjson/internal/biginteger.h \
+ thirdparty/rapidjson/internal/diyfp.h \
+ thirdparty/rapidjson/internal/pow10.h thirdparty/rapidjson/error/error.h \
+ thirdparty/rapidjson/error/../rapidjson.h \
+ thirdparty/rapidjson/internal/strfunc.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/iterator \
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stream_iterator.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/utility \
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_relops.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/tr1_impl/utility \
+ thirdparty/rapidjson/reader.h thirdparty/rapidjson/rapidjson.h \
+ thirdparty/rapidjson/stringbuffer.h thirdparty/rapidjson/writer.h \
+ thirdparty/rapidjson/internal/dtoa.h \
+ thirdparty/rapidjson/internal/itoa.h \
+ thirdparty/rapidjson/internal/itoa.h thirdparty/rapidjson/stringbuffer.h \
+ thirdparty/rapidjson/prettywriter.h thirdparty/rapidjson/writer.h \
+ thirdparty/rapidjson/filereadstream.h \
+ thirdparty/rapidjson/filewritestream.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/sstream \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/sstream.tcc \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/set \
@@ -406,6 +436,86 @@ urlCmd.hpp:
 /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_bvector.h:
 
 /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/vector.tcc:
+
+jsonReqeustParser.hpp:
+
+thirdparty/rapidjson/document.h:
+
+thirdparty/rapidjson/reader.h:
+
+thirdparty/rapidjson/rapidjson.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/cstring:
+
+/usr/include/string.h:
+
+/usr/include/inttypes.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/cassert:
+
+/usr/include/assert.h:
+
+thirdparty/rapidjson/allocators.h:
+
+thirdparty/rapidjson/encodings.h:
+
+thirdparty/rapidjson/internal/meta.h:
+
+thirdparty/rapidjson/internal/../rapidjson.h:
+
+thirdparty/rapidjson/internal/stack.h:
+
+thirdparty/rapidjson/internal/swap.h:
+
+thirdparty/rapidjson/internal/strtod.h:
+
+thirdparty/rapidjson/internal/ieee754.h:
+
+thirdparty/rapidjson/internal/biginteger.h:
+
+thirdparty/rapidjson/internal/diyfp.h:
+
+thirdparty/rapidjson/internal/pow10.h:
+
+thirdparty/rapidjson/error/error.h:
+
+thirdparty/rapidjson/error/../rapidjson.h:
+
+thirdparty/rapidjson/internal/strfunc.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/iterator:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stream_iterator.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/utility:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/bits/stl_relops.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/tr1_impl/utility:
+
+thirdparty/rapidjson/reader.h:
+
+thirdparty/rapidjson/rapidjson.h:
+
+thirdparty/rapidjson/stringbuffer.h:
+
+thirdparty/rapidjson/writer.h:
+
+thirdparty/rapidjson/internal/dtoa.h:
+
+thirdparty/rapidjson/internal/itoa.h:
+
+thirdparty/rapidjson/internal/itoa.h:
+
+thirdparty/rapidjson/stringbuffer.h:
+
+thirdparty/rapidjson/prettywriter.h:
+
+thirdparty/rapidjson/writer.h:
+
+thirdparty/rapidjson/filereadstream.h:
+
+thirdparty/rapidjson/filewritestream.h:
 
 /usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../include/c++/4.4.6/sstream:
 
